@@ -21,4 +21,7 @@ Suggested functionality:
     - **Entities**: `BookEntity`, `OrderEntity` → used for persistence
     - **DTOs**: `Book`, `Order` → used for API responses
 - Preloaded book data at application startup using `CommandLineRunner`
-- The API uses a global exception handler to return consistent JSON error responses.  
+- The API uses a global exception handler to return consistent JSON error responses.
+- The API uses **Basic Authentication**.
+- `/api/admin/**` → Requires `ADMIN` role
+- **Admin credentials**: `admin:password`

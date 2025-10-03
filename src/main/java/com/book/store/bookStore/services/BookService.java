@@ -9,23 +9,27 @@ import com.book.store.bookStore.model.Book;
 import com.book.store.bookStore.model.Order;
 import com.book.store.bookStore.repositories.BookRepository;
 import com.book.store.bookStore.repositories.OrderRepository;
+import com.book.store.bookStore.services.interfaces.IBookService;
 import com.book.store.bookStore.util.mapper.BookMapper;
 import com.book.store.bookStore.util.mapper.OrderMapper;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BookService {
-    @Autowired
-    BookRepository bookRepo;
+public class BookService implements IBookService {
 
-    @Autowired
-    OrderRepository orderRepo;
+    private final BookRepository bookRepo;
+    private final OrderRepository orderRepo;
 
+    public BookService(BookRepository bookRepo,OrderRepository orderRepo) {
+        this.bookRepo = bookRepo;
+        this.orderRepo = orderRepo;
+    }
 
+    @Cacheable("books")
     public List<Book> listBooks() {
         return bookRepo.findAll().stream()
                 .map(BookMapper::toDTO)

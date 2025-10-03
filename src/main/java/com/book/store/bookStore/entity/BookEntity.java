@@ -1,17 +1,33 @@
 package com.book.store.bookStore.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "books")
+@Table(name = "books",uniqueConstraints = @UniqueConstraint(columnNames = {"title", "author"}))
+@Data
+@AllArgsConstructor
 public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String author;
+
+    @Column(nullable = false)
     private double price;
+
+    @Column(nullable = false)
     private int stock;
+
+    @Version
+    private Long version;
 
     public BookEntity(){}
 
@@ -20,42 +36,6 @@ public class BookEntity {
         this.title = title;
         this.author = author;
         this.price = price;
-        this.stock = stock;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
         this.stock = stock;
     }
 }
