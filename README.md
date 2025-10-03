@@ -25,3 +25,22 @@ Suggested functionality:
 - The API uses **Basic Authentication**.
 - `/api/admin/**` → Requires `ADMIN` role
 - **Admin credentials**: `admin:password`
+- Added test cases for controller and service layers.
+
+## API :
+### for all Users :
+- List All book : (Get) /api/books
+- Buy Book : (Post) /api/books/{book_id}/buy?quantity={quantity}
+
+### For admin User :
+- Sample request body to add and update book :
+                    {
+                      "title": "Pride and Prejudice",
+                      "author": "Jane Austen",
+                      "price": 10.99,
+                      "stock": 10
+                    }
+
+- Add book : (Post) /api/admin/books
+- Update Book : (Put) /api/admin/books/{book_id}
+- Delete Book : (Delete) api/admin/books/{book_id}
