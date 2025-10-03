@@ -2,6 +2,8 @@ package com.book.store.bookStore.services;
 
 import com.book.store.bookStore.entity.BookEntity;
 import com.book.store.bookStore.entity.OrderEntity;
+import com.book.store.bookStore.exception.BookNotFoundException;
+import com.book.store.bookStore.exception.OutOfStockException;
 import com.book.store.bookStore.model.Book;
 import com.book.store.bookStore.model.Order;
 import com.book.store.bookStore.repositories.BookRepository;
@@ -33,10 +35,10 @@ public class BookService {
 
     public Order buyBook(Long bookId, int quantity) {
         BookEntity book = bookRepo.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() -> new BookNotFoundException(bookId));
 
         if (book.getStock() < quantity) {
-            throw new RuntimeException("Not enough stock");
+            throw new OutOfStockException(book.getTitle(), quantity, book.getStock());
         }
 
         book.setStock(book.getStock() - quantity);
