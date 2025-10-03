@@ -3,6 +3,7 @@ package com.book.store.bookStore.controller;
 import com.book.store.bookStore.model.Book;
 import com.book.store.bookStore.model.Order;
 import com.book.store.bookStore.services.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
-public class BookController {
+public class controller {
     @Autowired
     BookService bookService;
 

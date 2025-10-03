@@ -1,7 +1,11 @@
 package com.book.store.bookStore.model;
 
-import java.time.LocalDateTime;
+import lombok.Getter;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Getter
 public class ErrorResponse {
 
     private LocalDateTime timestamp;
@@ -9,6 +13,7 @@ public class ErrorResponse {
     private String error;
     private String message;
     private String path;
+    private List<FieldValidationError> fieldErrors;
 
     public ErrorResponse(int status, String error, String message, String path) {
         this.timestamp = LocalDateTime.now();
@@ -18,23 +23,20 @@ public class ErrorResponse {
         this.path = path;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public ErrorResponse(int status, String error, String message, String path, List<FieldValidationError> fieldErrors) {
+        this(status, error, message, path);
+        this.fieldErrors = fieldErrors;
     }
 
-    public int getStatus() {
-        return status;
-    }
+    @Getter
+    public static class FieldValidationError {
+        private String field;
+        private String message;
 
-    public String getError() {
-        return error;
-    }
+        public FieldValidationError(String field, String message) {
+            this.field = field;
+            this.message = message;
+        }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public String getPath() {
-        return path;
     }
 }
